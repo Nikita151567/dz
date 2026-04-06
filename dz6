@@ -1,0 +1,56 @@
+def corrector(string: str, width: int, symbol: str = ' ') -> str:
+    """
+    Форматує рядок, вирівнюючи його по центру у вказаній ширині,
+    заповнюючи обидва боки вказаним символом.
+    """
+    if not symbol or len(symbol) != 1:
+        symbol = ' '  # якщо символ неправильний — використовуємо пробіл
+
+    if width <= len(string):
+        return string  # якщо ширина замала — повертаємо як є
+
+    total_padding = width - len(string)
+    left_padding = total_padding // 2
+    right_padding = total_padding - left_padding  # при непарній кількості — +1 праворуч
+
+    return symbol * left_padding + string + symbol * right_padding
+
+
+# ========================
+# Інтерактивна частина для користувача
+# ========================
+
+if __name__ == "__main__":
+    print("=== Центрувальник рядків ===\n")
+
+    # Ввід від користувача
+    text = input("Введіть рядок, який потрібно відформатувати: ")
+
+    while True:
+        try:
+            width = int(input("Введіть ширину (кількість символів): "))
+            if width < 1:
+                print("Ширина повинна бути більше 0. Спробуйте ще раз.")
+                continue
+            break
+        except ValueError:
+            print("Будь ласка, введіть число!")
+
+    symbol = input("Введіть символ для заповнення (один символ, Enter = пробіл): ")
+
+    # Якщо користувач нічого не ввів — використовуємо пробіл
+    if symbol == "":
+        symbol = " "
+
+    # Викликаємо функцію
+    result = corrector(text, width, symbol)
+
+    # Вивід результату
+    print("\n" + "=" * 50)
+    print("Результат:")
+    print(result)
+    print("=" * 50)
+
+    # Додаткова інформація
+    print(f"Довжина рядка: {len(result)} символів")
+    print(f"Оригінальний текст: '{text}'")
