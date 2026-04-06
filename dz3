@@ -1,0 +1,52 @@
+import random
+
+
+def play_game():
+    result = {"computer": 0, "player": 0}
+
+    print("=== Гра Камінь-Ножиці-Папір до 3 перемог ===\n")
+
+    while result["computer"] < 3 and result["player"] < 3:
+        choice = input("Твій вибір (R / P / S): ").strip().lower()
+
+        if choice not in ['r', 'p', 's']:
+            print("Неправильний вибір! Введи R, P або S\n")
+            continue
+
+        computer_choice = random.choice(['r', 'p', 's'])
+
+        print(f"Твій вибір     → {choice.upper()}")
+        print(f"Вибір комп'ютера → {computer_choice.upper()}")
+
+        # Визначення переможця
+        if choice == computer_choice:
+            print("→ Нічія!\n")
+        elif (choice == "r" and computer_choice == "p") or \
+                (choice == "p" and computer_choice == "s") or \
+                (choice == "s" and computer_choice == "r"):
+            result["computer"] += 1
+            print("→ Комп'ютер переміг цей раунд!\n")
+        else:
+            result["player"] += 1
+            print("→ Ти переміг цей раунд!\n")
+
+        print(f"Рахунок: Комп'ютер {result['computer']} : {result['player']} Гравець\n")
+
+    # Підсумок гри
+    if result["player"] == 3:
+        print("🎉 ВІТАЮ! Ти переміг гру!")
+    else:
+        print("😢 Комп'ютер переміг гру!")
+
+    print(f"Фінальний рахунок: {result['computer']} - {result['player']}\n")
+
+
+# Головний цикл гри
+while True:
+    play_game()
+
+    again = input("Хочеш зіграти ще раз? (y/n): ").strip().lower()
+    if again != 'y':
+        print("Дякую за гру! До побачення 👋")
+        break
+    print("\n" + "=" * 40 + "\n")
