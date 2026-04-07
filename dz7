@@ -1,0 +1,44 @@
+import os
+
+def read_structure_from_file(filename):
+    if not os.path.exists(filename):
+        print(f"Помилка: файл '{filename}' не знайдено!")
+        return []
+    
+    with open(filename, 'r', encoding='utf-8') as f:
+        lines = [line.rstrip() for line in f.readlines() if line.strip()]
+    return lines
+
+
+def print_tree_structure(lines):
+    print("\n=== ДЕРЕВО ДИРЕКТОРІЙ ===\n")
+    
+    for line in lines:
+        stripped = line.lstrip()
+        indent = len(line) - len(stripped)
+        level = indent // 4
+        prefix = '    ' * level
+        print(f"{prefix}{stripped}")
+    
+    print("\n=========================")
+
+
+def main():
+    print("=== Візуалізатор структури директорій ===")
+    print("Введіть назву файлу зі структурою (наприклад: structure.txt)")
+    
+    filename = input("Назва файлу: ").strip()
+    
+    if not filename:
+        filename = "structure.txt"
+    
+    structure = read_structure_from_file(filename)
+    
+    if structure:
+        print_tree_structure(structure)
+    else:
+        print("Структура порожня або файл не вдалося прочитати.")
+
+
+if __name__ == "__main__":
+    main()
