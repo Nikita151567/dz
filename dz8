@@ -1,0 +1,27 @@
+from datetime import datetime, timedelta
+
+def main():
+    print("=== День народження на найближчі 20 років ===\n")
+    
+    month = int(input("Введіть місяць народження (1-12): "))
+    day = int(input("Введіть день народження (1-31): "))
+    
+    current_year = datetime.now().year
+    print("\nРік\tДата\t\tДень тижня\n" + "-" * 40)
+    
+    for i in range(20):
+        year = current_year + i
+        try:
+            birthday = datetime(year, month, day)
+            weekday = birthday.strftime("%A")
+            date_str = birthday.strftime("%d %B %Y")
+            
+            print(f"{year}\t{date_str}\t{weekday}")
+            
+        except ValueError:
+            print(f"{year}\tНеправильна дата (наприклад 29 лютого)")
+            break
+
+
+if __name__ == "__main__":
+    main()
