@@ -1,6 +1,1 @@
-import random
 
-min_val = int(input("Введіть найменше значення: "))
-max_val = int(input("Введіть найбільше значення: "))
-
-print(random.randint(min_val, max_val))
