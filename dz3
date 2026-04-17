@@ -1,1 +1,12 @@
 
+import turtle
+from turtledemo.round_dance import stop
+x = int(input())
+turtle.screensize(1000,1000)
+for i in range(5):
+    turtle.forward(x)
+    turtle.right(144)
+
+
+stop()
+turtle.done()
