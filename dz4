@@ -1,32 +1,12 @@
-import random
+from random import choice
+print("что вы хотите отредактировать:")
+y = input()
+x = choice = int(input("\nВведите номер (10-1000"  + "): "))
 
-print("Игра: Камень, Ножницы, Бумага")
-print("Напиши: камень, ножницы или бумага\n")
 
-options = ["камень", "ножницы", "бумага"]
+def corrector(string, width, symbol):
+    new_string = string.center(width, symbol)
+    return new_string
 
-while True:
-    player = input("Твой выбор: ").lower().strip()
-
-    if player not in options:
-        print("Пиши только: камень, ножницы или бумага!\n")
-        continue
-
-    computer = random.choice(options)
-
-    print(f"Ты выбрал: {player}")
-    print(f"Компьютер выбрал: {computer}\n")
-
-    if player == computer:
-        print("Ничья! \n")
-    elif (player == "камень" and computer == "ножницы") or \
-            (player == "ножницы" and computer == "бумага") or \
-            (player == "бумага" and computer == "камень"):
-        print("Ты выиграл!\n")
-    else:
-        print("Компьютер выиграл!\n")
-
-    again = input("Играем ещё? (да/нет): ").lower().strip()
-    if again != "да":
-        print("Спасибо за игру! Пока")
-        break
+result = corrector(y, x, "*")
+print(result)
