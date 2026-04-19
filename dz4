@@ -1,6 +1,6 @@
 import random
 
-print("Игра: Камень ✊, Ножницы ✌️, Бумага ✋")
+print("Игра: Камень, Ножницы, Бумага")
 print("Напиши: камень, ножницы или бумага\n")
 
 options = ["камень", "ножницы", "бумага"]
@@ -18,15 +18,15 @@ while True:
     print(f"Компьютер выбрал: {computer}\n")
 
     if player == computer:
-        print("Ничья! 🤝\n")
+        print("Ничья! \n")
     elif (player == "камень" and computer == "ножницы") or \
             (player == "ножницы" and computer == "бумага") or \
             (player == "бумага" and computer == "камень"):
-        print("Ты выиграл! 🎉\n")
+        print("Ты выиграл!\n")
     else:
-        print("Компьютер выиграл! 😢\n")
+        print("Компьютер выиграл!\n")
 
     again = input("Играем ещё? (да/нет): ").lower().strip()
     if again != "да":
-        print("Спасибо за игру! Пока 👋")
+        print("Спасибо за игру! Пока")
         break
