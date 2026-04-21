@@ -1,1 +1,54 @@
+import tkinter as tk
 
+class ClickerGame:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Clicker")
+        self.root.geometry("300x400")
+
+        self.score = 0
+        self.click_power = 1
+        self.auto_clickers = 0
+        self.upgrade_cost = 10
+
+        self.label_score = tk.Label(root, text=f"Score: {self.score}", font=("Arial", 20))
+        self.label_score.pack(pady=20)
+
+        self.btn_click = tk.Button(root, text="CLICK", command=self.click, width=20, height=3)
+        self.btn_click.pack(pady=10)
+
+        self.btn_upgrade = tk.Button(root, text=f"Upgrade ({self.upgrade_cost})",
+                                    command=self.buy_upgrade, width=25)
+        self.btn_upgrade.pack(pady=10)
+
+        self.label_info = tk.Label(root, text=f"Autoclickers: {self.auto_clickers}")
+        self.label_info.pack()
+
+        self.auto_update()
+
+    def click(self):
+        self.score += self.click_power
+        self.update_ui()
+
+    def buy_upgrade(self):
+        if self.score >= self.upgrade_cost:
+            self.score -= self.upgrade_cost
+            self.auto_clickers += 1
+            self.upgrade_cost = int(self.upgrade_cost * 1.5)
+            self.update_ui()
+
+    def update_ui(self):
+        self.label_score.config(text=f"Score: {self.score}")
+        self.btn_upgrade.config(text=f"Upgrade ({self.upgrade_cost})")
+        self.label_info.config(text=f"Autoclickers: {self.auto_clickers}")
+
+    def auto_update(self):
+        if self.auto_clickers > 0:
+            self.score += self.auto_clickers
+            self.update_ui()
+        self.root.after(1000, self.auto_update)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    game = ClickerGame(root)
+    root.mainloop()
