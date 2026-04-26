@@ -1,0 +1,33 @@
+import tkinter as tk,random
+W,C,R=600,20,30
+class S:
+ def __init__(self):
+  self.root=tk.Tk();self.cv=tk.Canvas(self.root,width=W,height=W+30,bg="#080c08");self.cv.pack()
+  self.root.bind("<KeyPress>",self.k);self.hi=0;self.rst();self.lp();self.root.mainloop()
+ def rst(self):
+  self.sn=[(15,15)];self.d=self.nd=(1,0);self.fd=self.rnd();self.sc=0;self.alive=True
+ def rnd(self):
+  p=(random.randint(0,R-1),random.randint(0,R-1));return self.rnd()if p in self.sn else p
+ def k(self,e):
+  n=e.keysym;d=self.d
+  if n=="Up"and d!=(0,1):self.nd=(0,-1)
+  elif n=="Down"and d!=(0,-1):self.nd=(0,1)
+  elif n=="Left"and d!=(1,0):self.nd=(-1,0)
+  elif n=="Right"and d!=(-1,0):self.nd=(1,0)
+  elif n=="r"and not self.alive:self.rst()
+  elif n=="q":self.root.destroy()
+ def lp(self):
+  if self.alive:
+   self.d=self.nd;h=(self.sn[0][0]+self.d[0],self.sn[0][1]+self.d[1])
+   if not(0<=h[0]<R and 0<=h[1]<R)or h in self.sn:self.alive=False;self.hi=max(self.sc,self.hi)
+   else:
+    self.sn.insert(0,h);self.sc,self.fd=(self.sc+1,self.rnd())if h==self.fd else(self.sc,self.fd);sn=self.sn;sn if h==self.fd else sn.pop()
+  self.draw();self.root.after(max(50,150-self.sc*3),self.lp)
+ def draw(self):
+  v=self.cv;v.delete("all")
+  [v.create_line(i,0,i,W,fill="#0f1c0f")or v.create_line(0,i,W,i,fill="#0f1c0f")for i in range(0,W,C)]
+  x,y=self.fd;v.create_rectangle(x*C+3,y*C+3,x*C+C-3,y*C+C-3,fill="#ff3c3c",outline="")
+  [v.create_rectangle(x*C+1,y*C+1,x*C+C-1,y*C+C-1,fill="#39ff14"if i==0 else"#14a805",outline="")for i,(x,y)in enumerate(self.sn)]
+  v.create_text(10,W+15,text=f"Счёт:{self.sc} Рекорд:{self.hi}",fill="#39ff14",font=("Courier",14,"bold"),anchor="w")
+  if not self.alive:v.create_rectangle(100,220,500,380,fill="#080c08",outline="#39ff14",width=2);v.create_text(W//2,265,text="КОНЕЦ",fill="#ff3c3c",font=("Courier",32,"bold"));v.create_text(W//2,310,text=f"Счёт:{self.sc}",fill="#39ff14",font=("Courier",18,"bold"));v.create_text(W//2,345,text="R=заново Q=выйти",fill="#2a6a20",font=("Courier",13))
+S()
